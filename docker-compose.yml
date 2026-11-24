@@ -1,0 +1,33 @@
+services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: marcas_autos
+      POSTGRES_USER: marcas_app
+      POSTGRES_PASSWORD: marcas_dev
+    ports:
+      - "127.0.0.1:5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -h 127.0.0.1 -U marcas_app -d marcas_autos"]
+      interval: 3s
+      timeout: 3s
+      retries: 20
+
+  api:
+    build:
+      context: .
+      dockerfile: PruebaBackend.Api/Dockerfile
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      ConnectionStrings__MarcasAutos: "Host=db;Port=5432;Database=marcas_autos;Username=marcas_app;Password=marcas_dev"
+      Database__ApplyMigrations: "true"
+      ASPNETCORE_HTTP_PORTS: "8080"
+    ports:
+      - "127.0.0.1:8080:8080"
+
+volumes:
+  postgres_data:

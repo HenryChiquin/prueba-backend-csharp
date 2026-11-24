@@ -1,0 +1,5 @@
+**
+!PruebaBackend.Api/
+!PruebaBackend.Api/**
+PruebaBackend.Api/bin/
+PruebaBackend.Api/obj/
