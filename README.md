@@ -1,6 +1,7 @@
 # Prueba de backend en C#
 
-API REST en ASP.NET Core y .NET 10 que consulta la tabla `MarcasAutos` en PostgreSQL. La primera migración crea la tabla e inserta Toyota, Honda y Ford.
+API REST en ASP.NET Core y .NET 10 que consulta la tabla `MarcasAutos` en PostgreSQL. 
+La primera migración crea la tabla e inserta Toyota, Honda y Ford.
 
 ## Ejecutar con Docker
 
@@ -22,7 +23,7 @@ dotnet restore
 dotnet test --settings coverage.runsettings --collect:"XPlat Code Coverage"
 ```
 
-Las pruebas usan EF Core InMemory. Los resultados de cobertura están en `PruebaBackend.Tests/TestResults/*/coverage.cobertura.xml`. El cálculo mide las líneas de la API y excluye los archivos generados de migración y de OpenAPI.
+Las pruebas usan EF Core InMemory. Los resultados de cobertura están en `PruebaBackend.Tests/TestResults/*/coverage.cobertura.xml`.
 
 ## Ejecutar la API desde Windows
 
@@ -32,5 +33,3 @@ dotnet tool restore
 dotnet ef database update --project PruebaBackend.Api -- --environment Development
 dotnet run --project PruebaBackend.Api --launch-profile http
 ```
-
-En ese modo la API usa la configuración de desarrollo y escucha en `http://localhost:5260/api/marcasautos`.
